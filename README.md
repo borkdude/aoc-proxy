@@ -1,10 +1,17 @@
-# Bun + Squint + Cloudflare
+# AOC proxy
 
-Run `bun --hot src/index.js` to start developing.
-Go to `http://localhost:3000/?input=hellooooo` to test out the worker.
+A Cloudflare worker to read input for Advent of Code puzzles.
 
+## Develop
+
+- Run `npx squint watch` to watch `src` for `.cljs` files. They are written to
+`out` as `.js` files.
+
+- Run `bun --hot src/index.js` to run the development server.
+
+## Deploy
+
+Run `bun build.js` to produce the final output in `dist/index.js`.
 To deploy to cloudflare, run `bun wrangler deploy`.
 
-The [squint](https://github.com/squint-cljs/squint) code is located in `src/index.cljs`.
-
-The worker is visible [here](https://freqs.borkdude.workers.dev/?input=hellooo).
+The worker is visible [here](https://aox-proxy.borkdude.workers.dev).
