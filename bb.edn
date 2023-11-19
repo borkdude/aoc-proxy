@@ -1,0 +1,10 @@
+{:tasks
+ {dev:squint (shell "bun squint watch")
+  dev:bun (shell "bun --hot out/index.js")
+  -dev {:depends [dev:bun dev:squint]}
+  dev {:doc "Run squint watch + bun"
+       :task (run '-dev {:parallel true})}
+  publish {:doc "Compile production artifact and deploy"
+           :task (do (shell "bun squint compile")
+                     (shell "bun build --minify --outdir=dist out/index.js")
+                     (shell "bun wrangler deploy"))}}}

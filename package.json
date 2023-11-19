@@ -10,8 +10,6 @@
     "wrangler": "^3.16.0"
   },
   "dependencies": {
-    "cookie": "^0.6.0",
-    "squint": "file:../squint",
-    "squint-cljs": "file:../squint"
+    "squint-cljs": "latest"
   }
 }
