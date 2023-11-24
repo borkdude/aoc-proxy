@@ -8,8 +8,14 @@
         (let [resp (js-await (js/fetch (str "https://adventofcode.com/" year "/day/" day "/input")
                                        {:headers {:cookie (str "session=" aoc-token)}}))
               body (js-await (.text resp))
-              resp (js/Response. body {:headers {"Access-Control-Allow-Origin" "*"}})]
-          resp)
+              headers (select-keys (:headers resp) [:content-type :content-length :status])]
+          (if (:ok resp)
+            (let [resp (js/Response. body {:headers (assoc headers
+                                                           "Access-Control-Allow-Origin" "*"
+                                                           "Cache-Control" "max-age=3600")})]
+              resp)
+            (js/Response. body (assoc headers
+                                      "Access-Control-Allow-Origin" "*"))))
         (js/Response. "Set 'aoc-token, 'day' and 'year' as a URL query parameter" {:status 400
                                                                                    :headers {"Access-Control-Allow-Origin" "*"}})))
     ;; response for :OPTION
